@@ -4,17 +4,12 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        charMap = Counter(s)
-        has_odd = 0
-        count = 0
-        
-        if len(charMap) == 1:
-            return len(s)
-        
-        for c, f in charMap.items():
-            if f % 2:
-                has_odd += 1
-                count += f - 1
+        pairs = 0
+        unpair_char_set = set()
+        for ch in s:
+            if ch in unpair_char_set:
+                pairs += 1
+                unpair_char_set.remove(ch)
             else:
-                count += f
-        return count + 1 if has_odd else count
+                unpair_char_set.add(ch)
+        return pairs * 2 + 1 if unpair_char_set else pairs * 2
